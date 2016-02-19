@@ -35,7 +35,7 @@ class Player(object):
 
 	def generate_board(self):
 		for x in range(self.board_space):
-			self.board.append(['O'] * self.board_space)
+			self.board.append(['~'] * self.board_space)
 
 	def random_orientation(self):
 		return randint(0, 1)

@@ -42,6 +42,10 @@ def battleship_client():
 					attack_result = data['battle_data']['attack_result']
 					opponent_board = data['battle_data']['opponent_board']
 					player_board = data['battle_data']['player_board']
+					for ship in ships_key:
+						for pair in ship['coordinates']:
+							if not (player_board[pair[0]][pair[1]] == 'H' or player_board[pair[0]][pair[1]] == '*'): 
+								player_board[pair[0]][pair[1]] = '0'
 					opponent_fleet_sunk = data['battle_data']['opponent_fleet_sunk']
 					player_fleet_sunk = data['battle_data']['player_fleet_sunk']
 					os.system('cls' if os.name == 'nt' else 'clear')
@@ -58,8 +62,6 @@ def battleship_client():
 					if data['orders_request'] == True:
 						target_coordinates = get_admirals_orders()
 						encode(sock, {'orders': {'coordinates': target_coordinates}})
-					elif data['orders_request'] == False: 
-						for ship in ships_key: print('%s: %s' % (ship['name'], ship['coordinates']))
 				if 'opp_disconnect' in data:
 					print('your opponent disconnected from the server')
 					opponent_no, player_no, board_space, ships_key = 0, 0, 0, []
