@@ -11,7 +11,7 @@ linux - open a new terminal window and run:  python Desktop/battleship-master/ba
 
 you can run as many instances of 'battleship_client.py' as you like.
 
-as clients connect to 'battleship_server.py' it will 2 x 2 serve them a new game and control its logic.</br>
+as clients connect to 'battleship_server.py' it will behave as a lobby and 2 x 2 serve them a new game and control it.</br>
 when a game ends by annihilation of a players force or the opponent disconnects from the server.</br>
 the client will delay 10 seconds before rejoining the servers games queue.
 
