@@ -13,11 +13,11 @@ def get_admirals_orders():
 # output
 def print_attack_result(result, target):
 	print
-	if result == 'tug': print('Hit! - You sank your opponents Tug Boat!')
-	elif result == 'destroyer': print('Hit! - You sank your opponents Destroyer!')
-	elif result == 'submarine': print('Hit! - You sank your opponents Submarine!')
-	elif result == 'battleship': print('Hit! - You sank your opponents Battleship!')
-	elif result == 'carrier': print('Hit! - You sank your opponents Aircraft Carrier!')
+	if result == 'tug': print('[%s,%s] Hit! - You sank your opponents Tug Boat!' % (target[0], target[1]))
+	elif result == 'destroyer': print('[%s,%s] Hit! - You sank your opponents Destroyer!' % (target[0], target[1]))
+	elif result == 'submarine': print('[%s,%s] Hit! - You sank your opponents Submarine!' % (target[0], target[1]))
+	elif result == 'battleship': print('[%s,%s] Hit! - You sank your opponents Battleship!' % (target[0], target[1]))
+	elif result == 'carrier': print('[%s,%s] Hit! - You sank your opponents Aircraft Carrier!' % (target[0], target[1]))
 	elif result == 'hit': print('[%s,%s] Hit!' % (target[0], target[1]))
 	elif result == 'miss': print('[%s,%s] Miss!' % (target[0], target[1]))
 	elif result == 'guessed': print('You\'ve guessed that one already!')
@@ -26,11 +26,11 @@ def print_attack_result(result, target):
 
 def print_damage_report(result, target):
 	print
-	if result == 'tug': print('Your Tug Boat has been sent to the depths!')
-	elif result == 'destroyer': print('Destroyer down!')
-	elif result == 'submarine': print('Submarine destroyed!')
-	elif result == 'battleship': print('Battleship sinking!')
-	elif result == 'carrier': print('Aircraft Carrier is out of action!')
+	if result == 'tug': print('[%s,%s] Your Tug Boat has been sent to the depths!' % (target[0], target[1]))
+	elif result == 'destroyer': print('[%s,%s] Destroyer down!' % (target[0], target[1]))
+	elif result == 'submarine': print('[%s,%s] Submarine destroyed!' % (target[0], target[1]))
+	elif result == 'battleship': print('[%s,%s] Battleship sinking!' % (target[0], target[1]))
+	elif result == 'carrier': print('[%s,%s] Aircraft Carrier is out of action!' % (target[0], target[1]))
 	elif result == 'hit': print('[%s,%s] Hit by opponent!' % (target[0], target[1]))
 	elif result == 'miss': print('[%s,%s] Missed by opponnent!' % (target[0], target[1]))
 	elif result == 'guessed': print('Your opponent made a repeat attack!')
