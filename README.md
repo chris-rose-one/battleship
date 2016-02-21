@@ -9,7 +9,7 @@ pc - open a new prompt window and run:  Desktop\battleship-master\battleship_cli
 linux - open terminal and run:  python Desktop/battleship-master/battleship_server.py</br>
 linux - open a new terminal window and run:  python Desktop/battleship-master/battleship_client.py ServerIpAddress PORT
 
-the server will display the ServerIpAddress and PORT at runtime.
+'battleship_server.py' will display the ServerIpAddress and PORT at runtime.
 
 you can run as many instances of 'battleship_client.py' as you like.
 
