@@ -58,7 +58,7 @@ class Client(object):
 						elif player_fleet_sunk == True: view.print_defeat()
 						if opponent_fleet_sunk == True or player_fleet_sunk == True:
 							opponent_no, player_no, board_space, ships_key = 0, 0, 0, []
-							new_game(sock)
+							self.new_game(sock)
 					if 'orders_request' in data:
 						if data['orders_request'] == True:
 							target_coordinates = view.get_admirals_orders()

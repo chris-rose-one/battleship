@@ -8,7 +8,7 @@ class Ship(object):
 		self.is_floating = True
 
 class Player(object):
-	def __init__(self, board_space, ships_key, player_no, conn):
+	def __init__(self, board_space, available_ships, player_no, conn):
 		self.board_space = board_space
 		self.connection = conn
 		self.turn_count = 0
@@ -16,7 +16,7 @@ class Player(object):
 		self.board = []
 		self.ships_key = []
 		self.generate_board()
-		self.generate_ships(self.board, ships_key)
+		self.generate_ships(self.board, available_ships)
 		
 	def generate_board(self):
 		for x in range(self.board_space):
@@ -47,8 +47,8 @@ class Player(object):
 		else:
 			return True
 
-	def generate_ships(self, board, ships_key):
-		for ship in ships_key:
+	def generate_ships(self, board, available_ships):
+		for ship in available_ships:
 			while True:
 				ship_coordinates = []
 				orientation = self.random_orientation()

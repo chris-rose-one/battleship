@@ -6,11 +6,11 @@ class Online_Game(object):
 	
 	#PATH = os.path.realpath(__file__)
 	board_space = 10
-	ships_key = [('carrier', 5), ('battleship', 4), ('submarine', 3), ('destroyer', 3), ('tug', 2)]
+	available_ships = [('carrier', 5), ('battleship', 4), ('submarine', 3), ('destroyer', 3), ('tug', 2)]
 	
 	def __init__(self, sock1, sock2):
-		self.player1 = model.Player(self.board_space, self.ships_key, 1, sock1)
-		self.player2 = model.Player(self.board_space, self.ships_key, 2, sock2)
+		self.player1 = model.Player(self.board_space, self.available_ships, 1, sock1)
+		self.player2 = model.Player(self.board_space, self.available_ships, 2, sock2)
 		self.send_init_data(self.player1, self.player2)
 		self.send_init_data(self.player2, self.player1)
 		self.send_battle_data(self.player1, self.player2)
