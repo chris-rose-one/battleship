@@ -19,3 +19,5 @@ the client will delay 10 seconds before rejoining the servers games queue.
 
 sockets allow the programs to communicate on your local computer or accross your LAN.</br>
 it is quite interesting to load the task manager, hone in on python network traffic and watch the data transfer.
+
+those new to python will need to download and install at least python 2.7 available at <a href="https://python.org/downloads">https://python.org/downloads</a>
