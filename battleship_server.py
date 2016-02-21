@@ -37,18 +37,12 @@ class Online_Game(object):
 			self.send_battle_data(self.player1, self.player2, 2, coordinates, result, player_fleet_sunk=fleet_destroyed)
 		if fleet_destroyed == True: live_games.remove(self)
 	
-	def serialize_ships(self, player):
-		data = []
-		for ship in player.ships_key:
-			data.append([ship.name, ship.coordinates])
-		return data
-	
 	def send_init_data(self, player, opponent):
 		encode(player.connection, {'init_data': {
 			'opponent_no': opponent.player_no,
 			'player_no': player.player_no,
 			'board_space': self.board_space,
-			'player_ships': self.serialize_ships(player)
+			'player_ships': player.serialize_ships()
 			}
 		})
 		

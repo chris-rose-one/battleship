@@ -83,6 +83,12 @@ class Player(object):
 							row += 1
 						else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
 
+	def serialize_ships(self):
+		data = []
+		for ship in self.ships_key:
+			data.append([ship.name, ship.coordinates])
+		return data
+	
 	def is_fleet_destroyed(self):
 		destroyed_ships = 0
 		for ship in self.ships_key:
