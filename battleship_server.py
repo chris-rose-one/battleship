@@ -5,11 +5,12 @@ import battleship_model as model
 class Online_Game(object):
 	
 	#PATH = os.path.realpath(__file__)
+	board_space = 10
+	ships_key = [('carrier', 5), ('battleship', 4), ('submarine', 3), ('destroyer', 3), ('tug', 2)]
 	
 	def __init__(self, sock1, sock2):
-		self.board_space = 10
-		self.player1 = model.Player(self.board_space, 1, sock1)
-		self.player2 = model.Player(self.board_space, 2, sock2)
+		self.player1 = model.Player(self.board_space, self.ships_key, 1, sock1)
+		self.player2 = model.Player(self.board_space, self.ships_key, 2, sock2)
 		self.send_init_data(self.player1, self.player2)
 		self.send_init_data(self.player2, self.player1)
 		self.send_battle_data(self.player1, self.player2)
@@ -36,12 +37,18 @@ class Online_Game(object):
 			self.send_battle_data(self.player1, self.player2, 2, coordinates, result, player_fleet_sunk=fleet_destroyed)
 		if fleet_destroyed == True: live_games.remove(self)
 	
+	def serialize_ships(self, player):
+		data = []
+		for ship in player.ships_key:
+			data.append([ship.name, ship.coordinates])
+		return data
+	
 	def send_init_data(self, player, opponent):
 		encode(player.connection, {'init_data': {
 			'opponent_no': opponent.player_no,
 			'player_no': player.player_no,
 			'board_space': self.board_space,
-			'player_ships': player.ships_key
+			'player_ships': self.serialize_ships(player)
 			}
 		})
 		

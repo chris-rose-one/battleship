@@ -44,7 +44,7 @@ class Client(object):
 						opponent_board = data['battle_data']['opponent_board']
 						player_board = data['battle_data']['player_board']
 						for ship in ships_key:
-							for pair in ship['coordinates']:
+							for pair in ship[1]:
 								if not (player_board[pair[0]][pair[1]] == 'H' or player_board[pair[0]][pair[1]] == '*'): 
 									player_board[pair[0]][pair[1]] = '0'
 						opponent_fleet_sunk = data['battle_data']['opponent_fleet_sunk']
