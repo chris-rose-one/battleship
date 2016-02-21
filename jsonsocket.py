@@ -1,4 +1,4 @@
-import json, socket
+import json
 
 def encode(socket, data):
 	try:

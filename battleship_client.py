@@ -1,8 +1,6 @@
-import sys, os
-import select
-import time
-from jsonsocket import *
-from battleship_view import *
+import sys, os, socket, select, time
+from jsonsocket import encode, decode
+import battleship_view as view
 
 class Client(object):
 	
@@ -24,8 +22,8 @@ class Client(object):
 	
 	def new_game(self, sock):
 		print('Re-entering the servers game queue')
-		time.sleep(10)
-		encode(sock, {'enter_queue': {}})
+		time.sleep(5)
+		encode(sock, {'queue_request': {}})
 
 	def main(self):
 		while 1:
@@ -52,18 +50,18 @@ class Client(object):
 						opponent_fleet_sunk = data['battle_data']['opponent_fleet_sunk']
 						player_fleet_sunk = data['battle_data']['player_fleet_sunk']
 						os.system('cls' if os.name == 'nt' else 'clear')
-						if attacker == player_no: print_attack_result(attack_result, target)
-						elif attacker == opponent_no: print_damage_report(attack_result, target)
-						print_board(opponent_board, board_space)
-						print_board(player_board, board_space)
-						if opponent_fleet_sunk == True: print_success()
-						elif player_fleet_sunk == True: print_defeat()
+						if attacker == player_no: view.print_attack_result(attack_result, target)
+						elif attacker == opponent_no: view.print_damage_report(attack_result, target)
+						view.print_board(opponent_board, board_space)
+						view.print_board(player_board, board_space)
+						if opponent_fleet_sunk == True: view.print_success()
+						elif player_fleet_sunk == True: view.print_defeat()
 						if opponent_fleet_sunk == True or player_fleet_sunk == True:
 							opponent_no, player_no, board_space, ships_key = 0, 0, 0, []
 							new_game(sock)
 					if 'orders_request' in data:
 						if data['orders_request'] == True:
-							target_coordinates = get_admirals_orders()
+							target_coordinates = view.get_admirals_orders()
 							encode(sock, {'orders': {'coordinates': target_coordinates}})
 					if 'opponent_disconnected' in data:
 						print('your opponent disconnected from the server')

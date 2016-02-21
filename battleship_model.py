@@ -28,7 +28,6 @@ class Player(object):
 			'coordinates': [[],[],[],[],[]],
 			'damage': 0, 'is_floating': True
 		}
-		'''self.aircraft_carrier, self.battleship, self.submarine,'''
 		self.ships_key = [self.aircraft_carrier, self.battleship, self.submarine, self.destroyer, self.tug]
 		self.generate_board()
 		self.generate_ships(self.board)

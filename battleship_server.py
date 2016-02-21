@@ -1,9 +1,11 @@
-import sys
-import select
-from jsonsocket import *
+import sys, os, socket, select
+from jsonsocket import encode, decode
 import battleship_model as model
 
 class Online_Game(object):
+	
+	#PATH = os.path.realpath(__file__)
+	
 	def __init__(self, sock1, sock2):
 		self.board_space = 10
 		self.player1 = model.Player(self.board_space, 1, sock1)
@@ -12,8 +14,6 @@ class Online_Game(object):
 		self.send_init_data(self.player2, self.player1)
 		self.send_battle_data(self.player1, self.player2)
 		self.send_battle_data(self.player2, self.player1)
-		print('Player 1 connection: (%s, %s)' % self.player1.connection.getpeername())
-		print('Player 2 connection: (%s, %s)' % self.player2.connection.getpeername())
 
 	def is_it_my_turn(self, player, opponent):
 		if player.is_fleet_destroyed() == True or opponent.is_fleet_destroyed() == True: return False
@@ -82,6 +82,8 @@ class Server(object):
 		game = Online_Game(self.game_queue[0], self.game_queue[1])
 		self.live_games.append(game)
 		for i in range(2): self.game_queue.remove(self.game_queue[0])
+		print('Player 1 connection: (%s, %s)' % game.player1.connection.getpeername())
+		print('Player 2 connection: (%s, %s)' % game.player2.connection.getpeername())
 
 	def main(self):
 		while 1:
@@ -101,7 +103,7 @@ class Server(object):
 							if 'orders' in data:
 								game = self.get_game_object(sock)
 								if game: game.direct_attack(sock, data['orders']['coordinates'])
-							if 'enter_queue' in data:
+							if 'queue_request' in data:
 								if sock not in self.game_queue: self.game_queue.append(sock)
 								if len(self.game_queue) >= 2: self.start_game()
 						else:
