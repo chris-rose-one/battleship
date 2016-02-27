@@ -3,10 +3,10 @@
 this is a command line adaption of the popular battleship board game.
 
 if you 'Download ZIP' and decompress it, then; </br>
-pc- open cmd prompt and run:  Downloads\battleship-master\battleship_server.py</br>
-pc- open a new prompt window and run:  Downloads\battleship-master\battleship_client.py ServerIpAddress Port</br>
-osx- open terminal and run:  python Downloads/battleship-master/battleship_server.py</br>
-osx- open a new terminal window and run:  python Downloads/battleship-master/battleship_client.py ServerIpAddress Port
+pc- open command prompt and run:  path\battleship_server.py</br>
+pc- open a new prompt window and run:  path\battleship_client.py ServerIpAddress Port</br>
+osx- open terminal and run:  python path/battleship_server.py</br>
+osx- open a new terminal window and run:  python path/battleship_client.py ServerIpAddress Port
 
 'battleship_server.py' will display the ServerIpAddress and Port at runtime.
 
