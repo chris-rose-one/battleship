@@ -1,18 +1,18 @@
 # battleship
 
-this is a command line based adaption of the popular battleship board game.
+this is a command line adaption of the popular battleship board game.
 
 if you 'Download ZIP' and decompress it, then; </br>
-pc - open cmd prompt and run:  Downloads\battleship-master\battleship_server.py</br>
-pc - open a new prompt window and run:  Downloads\battleship-master\battleship_client.py ServerIpAddress PORT</br>
-osx - open terminal and run:  python Downloads/battleship-master/battleship_server.py</br>
-osx - open a new terminal window and run:  python Downloads/battleship-master/battleship_client.py ServerIpAddress PORT
+pc- open cmd prompt and run:  Downloads\battleship-master\battleship_server.py</br>
+pc- open a new prompt window and run:  Downloads\battleship-master\battleship_client.py ServerIpAddress Port</br>
+osx- open terminal and run:  python Downloads/battleship-master/battleship_server.py</br>
+osx- open a new terminal window and run:  python Downloads/battleship-master/battleship_client.py ServerIpAddress Port
 
-'battleship_server.py' will display the ServerIpAddress and PORT at runtime.
+'battleship_server.py' will display the ServerIpAddress and Port at runtime.
 
-you can run as many instances of 'battleship_client.py' as you like.
+you can run as many instances of 'battleship_client.py' as you like.</br>
+as clients connect to 'battleship_server.py' it will behave as a lobby and 2 x 2 serve them a new game and control it.
 
-as clients connect to 'battleship_server.py' it will behave as a lobby and 2 x 2 serve them a new game and control it.</br>
 when a game ends by annihilation of a players force or the opponent disconnects from the server.</br>
 the client will delay 5 seconds before rejoining the servers games queue.
 
