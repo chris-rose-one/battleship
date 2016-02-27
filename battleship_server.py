@@ -75,16 +75,16 @@ class Server(object):
 		self.socket_list.append(self.server_socket)
 		print('battleship server started at %s on port %s' % (self.HOST, str(self.PORT)))
 
-	def get_game_object(self, sock):
-		for game in self.live_games:
-			if sock == game.player1.connection or sock == game.player2.connection: return game
-
 	def start_game(self):
 		game = Online_Game(self.game_queue[0], self.game_queue[1])
 		self.live_games.append(game)
 		for i in range(2): self.game_queue.remove(self.game_queue[0])
 		print('Player 1 connection: (%s, %s)' % game.player1.connection.getpeername())
 		print('Player 2 connection: (%s, %s)' % game.player2.connection.getpeername())
+
+	def get_game_object(self, sock):
+		for game in self.live_games:
+			if sock == game.player1.connection or sock == game.player2.connection: return game
 
 	def main(self):
 		while 1:
