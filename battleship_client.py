@@ -34,25 +34,21 @@ class Client(object):
 					if 'init_data' in data:
 						opponent_no = data['init_data']['opponent_no']
 						player_no = data['init_data']['player_no']
-						board_space = data['init_data']['board_space']
 						ships_key = data['init_data']['player_ships']
+						board_space = data['init_data']['board_space']
 					if 'battle_data' in data:
 						attacker = data['battle_data']['attacker']
 						target = data['battle_data']['target']
 						attack_result = data['battle_data']['attack_result']
 						opponent_board = data['battle_data']['opponent_board']
 						player_board = data['battle_data']['player_board']
-						for ship in ships_key:
-							for pair in ship[1]:
-								if not (player_board[pair[0]][pair[1]] == 'H' or player_board[pair[0]][pair[1]] == '*'): 
-									player_board[pair[0]][pair[1]] = '0'
 						opponent_fleet_sunk = data['battle_data']['opponent_fleet_sunk']
 						player_fleet_sunk = data['battle_data']['player_fleet_sunk']
 						os.system('cls' if os.name == 'nt' else 'clear')
 						if attacker == player_no: view.print_attack_result(attack_result, target)
 						elif attacker == opponent_no: view.print_damage_report(attack_result, target)
-						view.print_board(opponent_board, board_space)
-						view.print_board(player_board, board_space)
+						view.print_board(board_space, opponent_board)
+						view.print_board(board_space, player_board, ships_key)
 						if opponent_fleet_sunk == True: view.print_success()
 						elif player_fleet_sunk == True: view.print_defeat()
 						if opponent_fleet_sunk == True or player_fleet_sunk == True:

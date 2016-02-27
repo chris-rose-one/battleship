@@ -6,7 +6,7 @@ class Online_Game(object):
 	
 	#PATH = os.path.realpath(__file__)
 	board_space = 10
-	available_ships = [('carrier', 5), ('battleship', 4), ('submarine', 3), ('destroyer', 3), ('tug', 2)]
+	available_ships = [('aircraft carrier', 5), ('battleship', 4), ('destroyer', 3), ('submarine', 3), ('tug', 2)]
 	
 	def __init__(self, sock1, sock2):
 		self.player1 = model.Player(self.board_space, self.available_ships, 1, sock1)
@@ -41,8 +41,8 @@ class Online_Game(object):
 		encode(player.connection, {'init_data': {
 			'opponent_no': opponent.player_no,
 			'player_no': player.player_no,
-			'board_space': self.board_space,
-			'player_ships': player.serialize_ships()
+			'player_ships': player.serialize_ships(),
+			'board_space': self.board_space
 			}
 		})
 		

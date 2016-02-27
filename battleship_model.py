@@ -61,7 +61,7 @@ class Player(object):
 					else:
 						col = gen_col
 						for pair in range(ship[1]):
-							coordinate_pair = [gen_row, col]
+							coordinate_pair = [gen_row,col]
 							ship_coordinates.append(coordinate_pair)
 							col += 1
 						else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
@@ -74,7 +74,7 @@ class Player(object):
 					else:
 						row = gen_row
 						for pair in range(ship[1]):
-							coordinate_pair = [row, gen_col]
+							coordinate_pair = [row,gen_col]
 							ship_coordinates.append(coordinate_pair)
 							row += 1
 						else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
