@@ -41,21 +41,18 @@ class Player(object):
 			if ship.is_floating == True:
 				for pair in ship.coordinates:
 					if len(pair) != 0:
-						if pair[0] == row and \
-						   pair[1] == col:
-							return False
-		else:
-			return True
+						if pair[0] == row and pair[1] == col: return False
+		else: return True
 
 	def generate_ships(self, board, available_ships):
 		for ship in available_ships:
+			ship_coordinates = []
+			coordinate_pair = []
 			while True:
-				ship_coordinates = []
 				orientation = self.random_orientation()
 				gen_row = self.random_row(board)
 				gen_col = self.random_col(board)
 				if orientation == 0:
-					coordinate_pair = []
 					col = gen_col
 					for pair in range(ship[1]):
 						if self.is_out_of_range(gen_row, col): break
@@ -69,7 +66,6 @@ class Player(object):
 							col += 1
 						else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
 				else:
-					coordinate_pair = []
 					row = gen_row
 					for pair in range(ship[1]):
 						if self.is_out_of_range(row, gen_col): break
@@ -93,15 +89,12 @@ class Player(object):
 		destroyed_ships = 0
 		for ship in self.ships_key:
 			if ship.is_floating == False: destroyed_ships += 1
-		if destroyed_ships == len(self.ships_key):
-			return True
+		if destroyed_ships == len(self.ships_key): return True
 
 	def identify_ship(self, row, col):
 		for ship in self.ships_key:
 			for pair in ship.coordinates:
-				if pair[0] == row and \
-				   pair[1] == col:
-						return ship
+				if pair[0] == row and pair[1] == col: return ship
 
 	def resolve_attack(self, guess_row, guess_col):
 		if self.is_out_of_range(guess_row, guess_col): return 'limits'

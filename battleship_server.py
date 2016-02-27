@@ -94,7 +94,7 @@ class Server(object):
 				if sock == self.server_socket: 
 					conn, addr = self.server_socket.accept()
 					self.socket_list.append(conn)
-					print "Client (%s, %s) connected" % addr
+					print('Client (%s, %s) connected' % addr)
 					self.game_queue.append(conn)
 					if len(self.game_queue) >= 2: self.start_game()
 				else:
@@ -113,7 +113,7 @@ class Server(object):
 							else: 
 								game = self.get_game_object(sock)
 								if game: game.player_disconnected(sock); self.live_games.remove(game)
-							print "Client (%s, %s) disconnected" % sock.getpeername()
+							print('Client (%s, %s) disconnected' % sock.getpeername())
 					except: continue
 		server_socket.close()
 

@@ -8,7 +8,7 @@ class Client(object):
 	
 	def __init__(self):	
 		if(len(sys.argv) < 3) :
-			print 'Usage : python battleship_client.py ServerAddress PORT'
+			print('Usage : python battleship_client.py ServerIpAddress Port')
 			sys.exit()
 
 		HOST, PORT = sys.argv[1], int(sys.argv[2])
@@ -17,8 +17,8 @@ class Client(object):
 		self.socket_list = [sock]
 	
 		try: sock.connect((HOST, PORT))
-		except: print 'Unable to connect'; sys.exit()
-		print 'Connected to remote host.'
+		except: print('Unable to connect'); sys.exit()
+		print('Connected to remote host.')
 	
 	def new_game(self, sock):
 		print('Re-entering the servers game queue')
@@ -28,8 +28,7 @@ class Client(object):
 	def main(self):
 		while 1:
 			ready_to_read,ready_to_write,in_error = select.select(self.socket_list , [], [])
-		 
-			for sock in ready_to_read:
+		 	for sock in ready_to_read:
 				data = decode(sock)
 				if data:
 					if 'init_data' in data:
