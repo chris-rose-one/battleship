@@ -39,9 +39,8 @@ class Online_Game(object):
 	
 	def send_init_data(self, player, opponent):
 		encode(player.connection, {'init_data': {
-			'opponent_no': opponent.player_no,
-			'player_no': player.player_no,
-			'player_ships': player.serialize_ships(),
+			'opponent_no': opponent.player_no, 'player_no': player.player_no,
+			'player_board': player.board, 'player_ships': player.serialize_ships(),
 			'board_space': self.board_space
 			}
 		})

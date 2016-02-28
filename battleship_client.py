@@ -19,7 +19,7 @@ class Client(object):
 		try: sock.connect((HOST, PORT))
 		except: print('Unable to connect'); sys.exit()
 		print('Connected to remote host.')
-	
+
 	def new_game(self, sock):
 		print('Re-entering the servers game queue')
 		time.sleep(5)
@@ -34,8 +34,11 @@ class Client(object):
 					if 'init_data' in data:
 						opponent_no = data['init_data']['opponent_no']
 						player_no = data['init_data']['player_no']
+						player_board = data['init_data']['player_board']
 						ships_key = data['init_data']['player_ships']
 						board_space = data['init_data']['board_space']
+						os.system('cls' if os.name == 'nt' else 'clear')
+						view.print_brief(board_space, player_board, ships_key); time.sleep(60)
 					if 'battle_data' in data:
 						attacker = data['battle_data']['attacker']
 						target = data['battle_data']['target']
