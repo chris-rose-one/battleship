@@ -50,6 +50,7 @@ class Client(object):
 						os.system('cls' if os.name == 'nt' else 'clear')
 						if attacker == player_no: view.print_attack_result(attack_result, target)
 						elif attacker == opponent_no: view.print_damage_report(attack_result, target)
+						print
 						view.print_board(board_space, opponent_board)
 						view.print_board(board_space, player_board, ships_key)
 						if opponent_fleet_sunk == True: view.print_success()

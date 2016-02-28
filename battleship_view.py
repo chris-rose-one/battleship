@@ -39,7 +39,6 @@ def print_attack_result(result, target):
 	elif result == 'miss': print('  ' + '[%s,%s] Miss!' % (aplha_numero[target[0]], target[1]))
 	elif result == 'guessed': print('  ' + 'You\'ve guessed that one already!')
 	elif result == 'limits': print('  ' + 'That guess was out of range! You\'ve wasted a turn')
-	print
 
 def print_damage_report(result, target):
 	print
@@ -52,14 +51,12 @@ def print_damage_report(result, target):
 	elif result == 'miss': print('  ' + '[%s,%s] Missed by opponnent!' % (aplha_numero[target[0]], target[1]))
 	elif result == 'guessed': print('  ' + 'Your opponent made a repeat attack!')
 	elif result == 'limits': print('  ' + 'Your opponent fired beyond the game scope!')
-	print
 
 def print_board(board_space, board, ships_key=[]):
 	for ship in ships_key:
 		for pair in ship[1]:
 			if not (board[pair[0]][pair[1]] == 'H' or board[pair[0]][pair[1]] == '*'): 
 				board[pair[0]][pair[1]] = '0'
-	print
 	print('    '),
 	for col in range(board_space):
 		print('  ' + str(col)),
@@ -70,14 +67,10 @@ def print_board(board_space, board, ships_key=[]):
 	print('     |' + '---|' * board_space + '\n')
 
 def print_success():
-	print
-	print('  ' + 'You have anihilated your opponents entire fleet')
-	print
+	print('\n  ' + 'You have anihilated your opponents entire fleet')
 
 def print_defeat():
-	print
-	print('  ' + 'Your fleet has been destoyed')
-	print
+	print('\n  ' + 'Your fleet has been destoyed')
 
 # input
 def get_admirals_orders():
