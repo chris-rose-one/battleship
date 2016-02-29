@@ -67,10 +67,10 @@ def print_board(board_space, board, ships_key=[]):
 	print('     |' + '---|' * board_space + '\n')
 
 def print_success():
-	print('\n  ' + 'You have anihilated your opponents entire fleet')
+	print('\n  ' + 'You have anihilated your opponents entire fleet\n')
 
 def print_defeat():
-	print('\n  ' + 'Your fleet has been destoyed')
+	print('\n  ' + 'Your fleet has been destoyed\n')
 
 # input
 def get_admirals_orders():

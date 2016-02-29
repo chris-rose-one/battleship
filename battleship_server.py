@@ -3,21 +3,17 @@ from jsonsocket import encode, decode
 import battleship_model as model
 
 class Online_Game(object):
-	
-	#PATH = os.path.realpath(__file__)
-	board_space = 10
-	available_ships = [('aircraft carrier', 5), ('battleship', 4), ('destroyer', 3), ('submarine', 3), ('tug', 2)]
-	
-	def __init__(self, sock1, sock2):
-		self.player1 = model.Player(self.board_space, self.available_ships, 1, sock1)
-		self.player2 = model.Player(self.board_space, self.available_ships, 2, sock2)
+	def __init__(self, sock1, sock2, board_space, available_ships):
+		self.board_space = board_space
+		self.player1 = model.Player(board_space, available_ships, 1, sock1)
+		self.player2 = model.Player(board_space, available_ships, 2, sock2)
 		self.send_init_data(self.player1, self.player2)
 		self.send_init_data(self.player2, self.player1)
 		self.send_battle_data(self.player1, self.player2)
 		self.send_battle_data(self.player2, self.player1)
 
 	def is_it_my_turn(self, player, opponent):
-		if player.is_fleet_destroyed() == True or opponent.is_fleet_destroyed() == True: return False
+		if player.is_fleet_destroyed() == True or opponent.is_fleet_destroyed() == True: return None
 		elif player is self.player1 and player.turn_count == opponent.turn_count: return True
 		elif player is self.player2 and player.turn_count == opponent.turn_count - 1: return True
 		else: return False
@@ -66,20 +62,20 @@ class Server(object):
 	game_queue = []
 	live_games = []
 	
-	def __init__(self):
+	def __init__(self, board_space, available_ships):
 		self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 		self.server_socket.bind((self.HOST, self.PORT))
 		self.server_socket.listen(10)
 		self.socket_list.append(self.server_socket)
+		self.board_space = board_space
+		self.available_ships = available_ships
 		print('battleship server started at %s on port %s' % (self.HOST, str(self.PORT)))
 
 	def start_game(self):
-		game = Online_Game(self.game_queue[0], self.game_queue[1])
+		game = Online_Game(self.game_queue[0], self.game_queue[1], self.board_space, self.available_ships)
 		self.live_games.append(game)
 		for i in range(2): self.game_queue.remove(self.game_queue[0])
-		print('Player 1 connection: (%s, %s)' % game.player1.connection.getpeername())
-		print('Player 2 connection: (%s, %s)' % game.player2.connection.getpeername())
 
 	def get_game_object(self, sock):
 		for game in self.live_games:
@@ -117,4 +113,6 @@ class Server(object):
 		server_socket.close()
 
 if __name__ == "__main__":
-	Server().main()
+	board_space = 10
+	available_ships = [('aircraft carrier', 5), ('battleship', 4), ('destroyer', 3), ('submarine', 3), ('tug', 2)]
+	Server(board_space, available_ships).main()

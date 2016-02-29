@@ -62,6 +62,7 @@ class Client(object):
 						if data['orders_request'] == True:
 							target_coordinates = view.get_admirals_orders()
 							encode(sock, {'orders': {'coordinates': target_coordinates}})
+						elif data['orders_request'] == False: print('  ' + 'Opponents turn')
 					if 'opponent_disconnected' in data:
 						print('your opponent disconnected from the server')
 						opponent_no, player_no, board_space, ships_key = 0, 0, 0, []
