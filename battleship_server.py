@@ -1,5 +1,5 @@
 import sys, os, socket, select
-from jsonsocket import encode, decode
+from battleship_utils import send_json, receive_json
 import battleship_model as model
 
 class Online_Game(object):
@@ -34,7 +34,7 @@ class Online_Game(object):
 		if fleet_destroyed == True: live_games.remove(self)
 	
 	def send_init_data(self, player, opponent):
-		encode(player.connection, {'init_data': {
+		send_json(player.connection, {'init_data': {
 			'opponent_no': opponent.player_no, 'player_no': player.player_no,
 			'player_board': player.board, 'player_ships': player.serialize_ships(),
 			'board_space': self.board_space
@@ -42,7 +42,7 @@ class Online_Game(object):
 		})
 		
 	def send_battle_data(self, player, opponent, attacker=None, target=[], result='', player_fleet_sunk=False, opponent_fleet_sunk=False):
-		encode(player.connection, {'battle_data': {
+		send_json(player.connection, {'battle_data': {
 			'attacker': attacker, 'target': target, 'attack_result': result,
 			'opponent_board': opponent.board, 'player_board': player.board,
 			'opponent_fleet_sunk': opponent_fleet_sunk, 'player_fleet_sunk': player_fleet_sunk
@@ -51,8 +51,8 @@ class Online_Game(object):
 		})
 		
 	def player_disconnected(self, sock):
-		if sock == self.player1.connection: encode(self.player2.connection, {'opponent_disconnected': {}})
-		elif sock == self.player2.connection: encode(self.player1.connection, {'opponent_disconnected': {}})	
+		if sock == self.player1.connection: send_json(self.player2.connection, {'opponent_disconnected': {}})
+		elif sock == self.player2.connection: send_json(self.player1.connection, {'opponent_disconnected': {}})	
 
 class Server(object):
 	
@@ -94,7 +94,7 @@ class Server(object):
 					if len(self.game_queue) >= 2: self.start_game()
 				else:
 					try:
-						data = decode(sock)
+						data = receive_json(sock)
 						if data:
 							if 'orders' in data:
 								game = self.get_game_object(sock)

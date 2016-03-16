@@ -1,5 +1,5 @@
 import sys, os, socket, select, time
-from jsonsocket import encode, decode
+from battleship_utils import send_json, receive_json
 import battleship_view as view
 
 class Client(object):
@@ -23,13 +23,13 @@ class Client(object):
 	def new_game(self, sock):
 		print('Re-entering the servers game queue')
 		time.sleep(5)
-		encode(sock, {'queue_request': {}})
+		send_json(sock, {'queue_request': {}})
 
 	def main(self):
 		while 1:
 			ready_to_read,ready_to_write,in_error = select.select(self.socket_list , [], [])
 		 	for sock in ready_to_read:
-				data = decode(sock)
+				data = receive_json(sock)
 				if data:
 					if 'init_data' in data:
 						opponent_no = data['init_data']['opponent_no']
@@ -61,7 +61,7 @@ class Client(object):
 					if 'orders_request' in data:
 						if data['orders_request'] == True:
 							target_coordinates = view.get_admirals_orders()
-							encode(sock, {'orders': {'coordinates': target_coordinates}})
+							send_json(sock, {'orders': {'coordinates': target_coordinates}})
 						elif data['orders_request'] == False: print('  ' + 'Opponents turn')
 					if 'opponent_disconnected' in data:
 						print('your opponent disconnected from the server')
