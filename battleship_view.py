@@ -26,7 +26,7 @@ def print_brief(board_space, player_board, ships_key):
 		string = ''
 		string += '  %s: ' % ship[0]
 		for pair in ship[1]: string += '[%s,%s]' % (aplha_numero[pair[0]], pair[1])
-		print string
+		print(string)
 
 def print_attack_result(result, target):
 	print
