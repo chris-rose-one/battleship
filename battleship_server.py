@@ -97,8 +97,9 @@ class Server(object):
 						data = receive_json(sock)
 						if data:
 							if 'orders' in data:
+								orders = data.get('orders').get('coordinates')
 								game = self.get_game_object(sock)
-								if game: game.direct_attack(sock, data['orders']['coordinates'])
+								if game: game.direct_attack(sock, orders)
 							if 'queue_request' in data:
 								if sock not in self.game_queue: self.game_queue.append(sock)
 								if len(self.game_queue) >= 2: self.start_game()

@@ -32,21 +32,23 @@ class Client(object):
 				data = receive_json(sock)
 				if data:
 					if 'init_data' in data:
-						opponent_no = data['init_data']['opponent_no']
-						player_no = data['init_data']['player_no']
-						player_board = data['init_data']['player_board']
-						ships_key = data['init_data']['player_ships']
-						board_space = data['init_data']['board_space']
+						init_data = data.get('init_data')
+						opponent_no = init_data.get('opponent_no')
+						player_no = init_data.get('player_no')
+						player_board = init_data.get('player_board')
+						ships_key = init_data.get('player_ships')
+						board_space = init_data.get('board_space')
 						os.system('cls' if os.name == 'nt' else 'clear')
 						view.print_brief(board_space, player_board, ships_key); time.sleep(60)
 					if 'battle_data' in data:
-						attacker = data['battle_data']['attacker']
-						target = data['battle_data']['target']
-						attack_result = data['battle_data']['attack_result']
-						opponent_board = data['battle_data']['opponent_board']
-						player_board = data['battle_data']['player_board']
-						opponent_fleet_sunk = data['battle_data']['opponent_fleet_sunk']
-						player_fleet_sunk = data['battle_data']['player_fleet_sunk']
+						battle_data = data.get('battle_data')
+						attacker = battle_data.get('attacker')
+						target = battle_data.get('target')
+						attack_result = battle_data.get('attack_result')
+						opponent_board = battle_data.get('opponent_board')
+						player_board = battle_data.get('player_board')
+						opponent_fleet_sunk = battle_data.get('opponent_fleet_sunk')
+						player_fleet_sunk = battle_data.get('player_fleet_sunk')
 						os.system('cls' if os.name == 'nt' else 'clear')
 						if attacker == player_no: view.print_attack_result(attack_result, target)
 						elif attacker == opponent_no: view.print_damage_report(attack_result, target)
