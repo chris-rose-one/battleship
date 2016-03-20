@@ -97,11 +97,11 @@ class Player(object):
 				if pair[0] == row and pair[1] == col: return ship
 
 	def resolve_attack(self, guess_row, guess_col):
-		if self.is_out_of_range(guess_row, guess_col): return 'limits'
+		if self.is_out_of_range(guess_row, guess_col): return ['limits']
 		if self.board[guess_row][guess_col] == 'X' or \
 			 self.board[guess_row][guess_col] == 'H' or \
 			 self.board[guess_row][guess_col] == '*':
-				return 'guessed'
+				return ['guessed']
 		elif self.is_open_water(guess_row, guess_col) == False:
 			ship = self.identify_ship(guess_row, guess_col)
 			ship.damage += 1
@@ -109,10 +109,10 @@ class Player(object):
 				ship.is_floating = False
 				for pair in ship.coordinates:
 					self.board[pair[0]][pair[1]] = '*'
-				return ship.name
+				return ['destroyed', ship.name]
 			else:
 				self.board[guess_row][guess_col] = 'H'
-				return 'hit'
+				return ['hit', ship.name]
 		else:
 			self.board[guess_row][guess_col] = 'X'
-			return 'miss'
+			return ['miss']

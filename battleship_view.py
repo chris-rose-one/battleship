@@ -30,27 +30,19 @@ def print_brief(board_space, player_board, ships_key):
 
 def print_attack_result(result, target):
 	print
-	if result == 'tug': print('  ' + '[%s,%s] Hit! - You sank your opponents Tug Boat!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'destroyer': print('  ' + '[%s,%s] Hit! - You sank your opponents Destroyer!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'submarine': print('  ' + '[%s,%s] Hit! - You sank your opponents Submarine!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'battleship': print('  ' + '[%s,%s] Hit! - You sank your opponents Battleship!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'aircraft carrier': print('  ' + '[%s,%s] Hit! - You sank your opponents Aircraft Carrier!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'hit': print('  ' + '[%s,%s] Hit!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'miss': print('  ' + '[%s,%s] Miss!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'guessed': print('  ' + 'You\'ve guessed that one already!')
-	elif result == 'limits': print('  ' + 'That guess was out of range! You\'ve wasted a turn')
+	if result[0] == 'destroyed': print('  ' + '[%s,%s] Hit! - You sank your opponents %s!' % (aplha_numero[target[0]], target[1], result[1]))
+	elif result[0] == 'hit': print('  ' + '[%s,%s] Hit!' % (aplha_numero[target[0]], target[1]))
+	elif result[0] == 'miss': print('  ' + '[%s,%s] Miss!' % (aplha_numero[target[0]], target[1]))
+	elif result[0] == 'guessed': print('  ' + 'You\'ve guessed that one already!')
+	elif result[0] == 'limits': print('  ' + 'That guess was out of range! You\'ve wasted a turn')
 
 def print_damage_report(result, target):
 	print
-	if result == 'tug': print('  ' + '[%s,%s] Your Tug Boat has been sent to the depths!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'destroyer': print('  ' + '[%s,%s] Destroyer down!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'submarine': print('  ' + '[%s,%s] Submarine destroyed!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'battleship': print('  ' + '[%s,%s] Battleship sinking!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'aircraft carrier': print('  ' + '[%s,%s] Aircraft Carrier is out of action!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'hit': print('  ' + '[%s,%s] Hit by opponent!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'miss': print('  ' + '[%s,%s] Missed by opponnent!' % (aplha_numero[target[0]], target[1]))
-	elif result == 'guessed': print('  ' + 'Your opponent made a repeat attack!')
-	elif result == 'limits': print('  ' + 'Your opponent fired beyond the game scope!')
+	if result[0] == 'destroyed': print('  ' + '[%s,%s] %s has been Destroyed!' % (aplha_numero[target[0]], target[1], result[1]))
+	elif result[0] == 'hit': print('  ' + '[%s,%s] %s Hit sir!' % (aplha_numero[target[0]], target[1], result[1]))
+	elif result[0] == 'miss': print('  ' + '[%s,%s] Missed by opponnent!' % (aplha_numero[target[0]], target[1]))
+	elif result[0] == 'guessed': print('  ' + 'Your opponent made a repeat attack!')
+	elif result[0] == 'limits': print('  ' + 'Your opponent fired beyond the game scope!')
 
 def print_board(board_space, board, ships_key=[]):
 	for ship in ships_key:

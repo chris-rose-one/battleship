@@ -41,7 +41,7 @@ class Online_Game(object):
 			}
 		})
 		
-	def send_battle_data(self, player, opponent, attacker=None, target=[], result='', player_fleet_sunk=False, opponent_fleet_sunk=False):
+	def send_battle_data(self, player, opponent, attacker=None, target=[], result=[], player_fleet_sunk=False, opponent_fleet_sunk=False):
 		send_json(player.connection, {'battle_data': {
 			'attacker': attacker, 'target': target, 'attack_result': result,
 			'opponent_board': opponent.board, 'player_board': player.board,
@@ -57,7 +57,7 @@ class Online_Game(object):
 class Server(object):
 	
 	HOST = socket.gethostbyname(socket.gethostname())
-	PORT = 9009
+	PORT = 16000
 	socket_list = []
 	game_queue = []
 	live_games = []
@@ -115,5 +115,5 @@ class Server(object):
 
 if __name__ == "__main__":
 	board_space = 10
-	available_ships = [('aircraft carrier', 5), ('battleship', 4), ('destroyer', 3), ('submarine', 3), ('tug', 2)]
+	available_ships = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Tug Boat', 2)]
 	Server(board_space, available_ships).main()
