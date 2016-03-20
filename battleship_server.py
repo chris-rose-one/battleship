@@ -80,6 +80,7 @@ class Server(object):
 	def get_game_object(self, sock):
 		for game in self.live_games:
 			if sock == game.player1.connection or sock == game.player2.connection: return game
+			else: return False
 
 	def main(self):
 		while 1:
@@ -110,7 +111,9 @@ class Server(object):
 								game = self.get_game_object(sock)
 								if game: game.player_disconnected(sock); self.live_games.remove(game)
 							print('Client (%s, %s) disconnected' % sock.getpeername())
-					except: continue
+					except: 
+						print('except')
+						continue
 		server_socket.close()
 
 if __name__ == "__main__":

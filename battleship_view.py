@@ -39,7 +39,7 @@ def print_attack_result(result, target):
 def print_damage_report(result, target):
 	print
 	if result[0] == 'destroyed': print('  ' + '[%s,%s] %s has been Destroyed!' % (aplha_numero[target[0]], target[1], result[1]))
-	elif result[0] == 'hit': print('  ' + '[%s,%s] %s Hit sir!' % (aplha_numero[target[0]], target[1], result[1]))
+	elif result[0] == 'hit': print('  ' + '[%s,%s] %s has been Hit sir!' % (aplha_numero[target[0]], target[1], result[1]))
 	elif result[0] == 'miss': print('  ' + '[%s,%s] Missed by opponnent!' % (aplha_numero[target[0]], target[1]))
 	elif result[0] == 'guessed': print('  ' + 'Your opponent made a repeat attack!')
 	elif result[0] == 'limits': print('  ' + 'Your opponent fired beyond the game scope!')
