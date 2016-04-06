@@ -2,10 +2,10 @@ aplha_numero = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 
 # output
 def print_qa_attack():
-	print('  ' + 'when prompted to make an attack.')
-	print('  ' + 'type any combination of a row letter[A-J] and a')
+	print('  ' + 'When prompted to make an attack.')
+	print('  ' + 'Type any combination of a row letter[A-J] and a')
 	print('  ' + 'column number[0-9] with no space between them,')
-	print('  ' + 'and press enter. letters are not case sensitive.')
+	print('  ' + 'and press enter. Letters are not case sensitive.')
 	print('  ' + 'for example: d3 D7\n')
 
 def print_brief(board_space, player_board, ships_key):
@@ -15,7 +15,7 @@ def print_brief(board_space, player_board, ships_key):
 	print('  ' + ('*' * 48) + '\n')
 	print('  ' + 'Objective')
 	print('  ' + '=========')
-	print('  ' + 'annihilate your opponents entire fleet.\n')
+	print('  ' + 'Annihilate your opponents entire fleet.\n')
 	print('  ' + 'How To Attack')
 	print('  ' + '=============')
 	print_qa_attack()
@@ -27,6 +27,12 @@ def print_brief(board_space, player_board, ships_key):
 		string += '  %s: ' % ship[0]
 		for pair in ship[1]: string += '[%s,%s]' % (aplha_numero[pair[0]], pair[1])
 		print(string)
+	print
+	print('  ' + 'Symbol Key')
+	print('  ' + '==========')
+	print('  ' + '\'~\' - Water' + (' ' * 15) + '\'0\' - Ship')
+	print('  ' + '\'X\' - Miss' + (' ' * 16) + '\'H\' - Hit')
+	print('  ' + '\'*\' - Destroyed')
 
 def print_attack_result(result, target):
 	print
