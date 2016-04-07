@@ -25,11 +25,8 @@ class Player(object):
 	def random_orientation(self):
 		return randint(0, 1)
 
-	def random_row(self, board):
-		return randint(0, len(self.board) - 1)
-
-	def random_col(self, board):
-		return randint(0, len(self.board[0]) - 1)
+	def random_in_range(self):
+		return randint(0, self.board_space - 1)
 
 	def is_out_of_range(self, row, col):
 		if (row < 0 or row > (self.board_space - 1)) or \
@@ -50,34 +47,22 @@ class Player(object):
 			coordinate_pair = []
 			while True:
 				orientation = self.random_orientation()
-				gen_row = self.random_row(board)
-				gen_col = self.random_col(board)
+				gen_row = self.random_in_range()
+				gen_col = self.random_in_range()
 				if orientation == 0:
 					col = gen_col
 					for pair in range(ship[1]):
 						if self.is_out_of_range(gen_row, col): break
-						elif self.is_open_water(gen_row, col): col += 1
-						else: break
-					else:
-						col = gen_col
-						for pair in range(ship[1]):
-							coordinate_pair = [gen_row,col]
-							ship_coordinates.append(coordinate_pair)
-							col += 1
-						else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
+						elif self.is_open_water(gen_row, col): ship_coordinates.append([gen_row,col]); col += 1
+						else: ship_coordinates=[]; break
+					else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
 				else:
 					row = gen_row
 					for pair in range(ship[1]):
 						if self.is_out_of_range(row, gen_col): break
-						elif self.is_open_water(row, gen_col): row += 1
+						elif self.is_open_water(row, gen_col): ship_coordinates.append([row,gen_col]); row += 1
 						else: break
-					else:
-						row = gen_row
-						for pair in range(ship[1]):
-							coordinate_pair = [row,gen_col]
-							ship_coordinates.append(coordinate_pair)
-							row += 1
-						else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
+					else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
 
 	def serialize_ships(self):
 		data = []
