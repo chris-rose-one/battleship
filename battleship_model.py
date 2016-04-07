@@ -44,7 +44,6 @@ class Player(object):
 	def generate_ships(self, board, available_ships):
 		for ship in available_ships:
 			ship_coordinates = []
-			coordinate_pair = []
 			while True:
 				orientation = self.random_orientation()
 				gen_row = self.random_in_range()
