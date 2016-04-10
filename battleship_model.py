@@ -43,8 +43,8 @@ class Player(object):
 
 	def generate_ships(self, board, available_ships):
 		for ship in available_ships:
-			ship_coordinates = []
 			while True:
+				ship_coordinates = []
 				orientation = self.random_orientation()
 				gen_row = self.random_in_range()
 				gen_col = self.random_in_range()
@@ -53,7 +53,7 @@ class Player(object):
 					for pair in range(ship[1]):
 						if self.is_out_of_range(gen_row, col): break
 						elif self.is_open_water(gen_row, col): ship_coordinates.append([gen_row,col]); col += 1
-						else: ship_coordinates=[]; break
+						else: break
 					else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
 				else:
 					row = gen_row
