@@ -41,6 +41,25 @@ class Player(object):
 						if pair[0] == row and pair[1] == col: return False
 		else: return True
 
+	def is_independent(self, coordinate_list):
+		buffer_list = []
+		for pair in coordinate_list:
+			row, col = pair[0], pair[1]; row -= 1
+			if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col]); col += 1
+			if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col])
+			for i in range(2):
+				row += 1
+				if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col])
+			for i in range(2):
+				col -= 1
+				if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col])
+			for i in range(2):
+				row -= 1
+				if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col])
+		for pair in buffer_list:
+			if not self.is_open_water(pair[0], pair[1]): return False
+		else: return True
+
 	def generate_ships(self, board, available_ships):
 		for ship in available_ships:
 			while True:
@@ -54,14 +73,16 @@ class Player(object):
 						if self.is_out_of_range(gen_row, col): break
 						elif self.is_open_water(gen_row, col): ship_coordinates.append([gen_row,col]); col += 1
 						else: break
-					else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
+					else: 
+						if self.is_independent(ship_coordinates): boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
 				else:
 					row = gen_row
 					for pair in range(ship[1]):
 						if self.is_out_of_range(row, gen_col): break
 						elif self.is_open_water(row, gen_col): ship_coordinates.append([row,gen_col]); row += 1
 						else: break
-					else: boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
+					else: 
+						if self.is_independent(ship_coordinates): boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
 
 	def serialize_ships(self):
 		data = []
