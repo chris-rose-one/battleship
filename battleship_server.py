@@ -31,7 +31,7 @@ class Online_Game(object):
 			fleet_destroyed = self.player1.is_fleet_destroyed()
 			self.send_battle_data(self.player2, self.player1, 2, coordinates, result, opponent_fleet_sunk=fleet_destroyed)
 			self.send_battle_data(self.player1, self.player2, 2, coordinates, result, player_fleet_sunk=fleet_destroyed)
-		if fleet_destroyed == True: live_games.remove(self)
+		if fleet_destroyed == True: Server.live_games.remove(self)
 	
 	def send_init_data(self, player, opponent):
 		send_json(player.connection, {'init_data': {
@@ -71,6 +71,7 @@ class Server(object):
 		self.board_space = board_space
 		self.available_ships = available_ships
 		print('battleship server started at %s on port %s' % (self.HOST, str(self.PORT)))
+		
 
 	def start_game(self):
 		game = Online_Game(self.game_queue[0], self.game_queue[1], self.board_space, self.available_ships)
@@ -118,5 +119,5 @@ class Server(object):
 
 if __name__ == "__main__":
 	board_space = 10
-	available_ships = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Tug Boat', 2)]
+	available_ships = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Patrol Boat', 2)] 
 	Server(board_space, available_ships).main()
