@@ -10,9 +10,10 @@ class Ship(object):
 class Player(object):
 	def __init__(self, board_space, available_ships, player_no, conn):
 		self.board_space = board_space
-		self.connection = conn
-		self.turn_count = 0
 		self.player_no = player_no
+		self.connection = conn
+		self.opponent = None
+		self.turn_count = 0
 		self.board = []
 		self.ships_key = []
 		self.generate_board()

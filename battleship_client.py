@@ -39,7 +39,7 @@ class Client(object):
 						self.ships_key = init_data.get('player_ships')
 						self.board_space = init_data.get('board_space')
 						os.system('cls' if os.name == 'nt' else 'clear')
-						view.print_brief(self.board_space, player_board, self.ships_key); time.sleep(60)
+						view.print_brief(self.board_space, player_board, self.ships_key); time.sleep(0)
 					if 'battle_data' in data:
 						battle_data = data.get('battle_data')
 						attacker = battle_data.get('attacker')
@@ -64,7 +64,6 @@ class Client(object):
 						if data['orders_request'] == True:
 							target_coordinates = view.get_admirals_orders()
 							send_json(sock, {'orders': {'coordinates': target_coordinates}})
-						elif data['orders_request'] == False: print('  ' + 'Opponents turn')
 					if 'opponent_disconnected' in data:
 						print('your opponent disconnected from the server')
 						self.opponent_no, self.player_no, self.board_space, self.ships_key = 0, 0, 0, []
