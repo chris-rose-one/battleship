@@ -66,24 +66,19 @@ class Player(object):
 			while True:
 				ship_coordinates = []
 				orientation = self.random_orientation()
-				gen_row = self.random_in_range()
-				gen_col = self.random_in_range()
-				if orientation == 0:
-					col = gen_col
-					for pair in range(ship[1]):
-						if self.is_out_of_range(gen_row, col): break
-						elif self.is_open_water(gen_row, col): ship_coordinates.append([gen_row,col]); col += 1
-						else: break
-					else: 
-						if self.is_independent(ship_coordinates): boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
+				row = self.random_in_range()
+				col = self.random_in_range()
+				for pair in range(ship[1]):
+					if not self.is_out_of_range(row, col) and self.is_open_water(row, col): 
+						ship_coordinates.append([row,col])
+						if orientation == 0: col +=1
+						else: row += 1
+					else: break
 				else:
-					row = gen_row
-					for pair in range(ship[1]):
-						if self.is_out_of_range(row, gen_col): break
-						elif self.is_open_water(row, gen_col): ship_coordinates.append([row,gen_col]); row += 1
-						else: break
-					else: 
-						if self.is_independent(ship_coordinates): boat = Ship(ship[0], ship_coordinates); self.ships_key.append(boat); break
+					if self.is_independent(ship_coordinates): 
+						boat = Ship(ship[0], ship_coordinates)
+						self.ships_key.append(boat)
+						break
 
 	def serialize_ships(self):
 		data = []
