@@ -39,7 +39,7 @@ class Client(object):
 						self.ships_key = init_data.get('player_ships')
 						self.board_space = init_data.get('board_space')
 						os.system('cls' if os.name == 'nt' else 'clear')
-						view.print_brief(self.board_space, player_board, self.ships_key); time.sleep(0)
+						view.print_brief(self.board_space, player_board, self.ships_key); time.sleep(60)
 					if 'battle_data' in data:
 						battle_data = data.get('battle_data')
 						attacker = battle_data.get('attacker')

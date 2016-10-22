@@ -37,6 +37,7 @@ class Online_Game(object):
 	def player_disconnected(self, sock):
 		player = self.get_player_by_socket(sock)
 		send_json(player.opponent.connection, {'opponent_disconnected': {}})
+		Server.live_games.remove(self)
 	
 	def get_player_by_socket(self, sock):
 		for player in self.player_list:
@@ -101,15 +102,11 @@ class Server(object):
 								if sock not in self.game_queue: self.game_queue.append(sock)
 								if len(self.game_queue) >= 2: self.start_game()
 						else:
-							if sock in self.socket_list: self.socket_list.remove(sock)
 							if sock in self.game_queue: self.game_queue.remove(sock)
-							else: 
-								game = self.get_game(sock)
-								if game: game.player_disconnected(sock); self.live_games.remove(game)
+							elif self.get_game(sock): game.player_disconnected(sock)
+							if sock in self.socket_list: self.socket_list.remove(sock)
 							print('Client (%s, %s) disconnected' % sock.getpeername())
-					except: 
-						print('except')
-						continue
+					except: continue
 		server_socket.close()
 
 if __name__ == "__main__":
