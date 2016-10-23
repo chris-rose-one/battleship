@@ -45,18 +45,15 @@ class Player(object):
 	def is_independent(self, coordinate_list):
 		buffer_list = []
 		for pair in coordinate_list:
-			row, col = pair[0], pair[1]; row -= 1
-			if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col]); col += 1
-			if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col])
-			for i in range(2):
-				row += 1
-				if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col])
-			for i in range(2):
-				col -= 1
-				if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col])
-			for i in range(2):
-				row -= 1
-				if [row, col] not in (coordinate_list and buffer_list): buffer_list.append([row, col])
+			row, col = pair[0], pair[1]
+			if [row - 1, col - 1] not in (coordinate_list and buffer_list): buffer_list.append([row - 1, col - 1])
+			if [row - 1, col] not in (coordinate_list and buffer_list): buffer_list.append([row - 1, col])
+			if [row - 1, col + 1] not in (coordinate_list and buffer_list): buffer_list.append([row - 1, col + 1])
+			if [row, col + 1] not in (coordinate_list and buffer_list): buffer_list.append([row, col + 1])
+			if [row + 1, col + 1] not in (coordinate_list and buffer_list): buffer_list.append([row + 1, col + 1])
+			if [row + 1, col] not in (coordinate_list and buffer_list): buffer_list.append([row + 1, col])
+			if [row + 1, col - 1] not in (coordinate_list and buffer_list): buffer_list.append([row + 1, col - 1])
+			if [row, col - 1] not in (coordinate_list and buffer_list): buffer_list.append([row, col - 1])
 		for pair in buffer_list:
 			if not self.is_open_water(pair[0], pair[1]): return False
 		else: return True
