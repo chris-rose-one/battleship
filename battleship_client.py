@@ -15,14 +15,16 @@ class Client(object):
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		sock.settimeout(2)
 		self.socket_list = [sock]
-	
+		
 		try: sock.connect((HOST, PORT))
 		except: print('Unable to connect'); sys.exit()
 		print('Connected to remote host.')
+		
+		self.send_queue_request(sock)
 
-	def new_game(self, sock):
-		print('Re-entering the servers game queue')
-		time.sleep(5)
+	def send_queue_request(self, sock):
+		print('Entering the servers game queue')
+		time.sleep(10)
 		send_json(sock, {'queue_request': {}})
 
 	def main(self):
@@ -39,7 +41,7 @@ class Client(object):
 						self.ships_key = init_data.get('player_ships')
 						self.board_space = init_data.get('board_space')
 						os.system('cls' if os.name == 'nt' else 'clear')
-						view.print_brief(self.board_space, player_board, self.ships_key); time.sleep(60)
+						view.print_brief(self.board_space, player_board, self.ships_key); time.sleep(0)
 					if 'battle_data' in data:
 						battle_data = data.get('battle_data')
 						attacker = battle_data.get('attacker')
@@ -59,7 +61,7 @@ class Client(object):
 						elif player_fleet_sunk == True: view.print_defeat()
 						if opponent_fleet_sunk == True or player_fleet_sunk == True:
 							self.opponent_no, self.player_no, self.board_space, self.ships_key = 0, 0, 0, []
-							self.new_game(sock)
+							self.send_queue_request(sock)
 					if 'orders_request' in data:
 						if data['orders_request'] == True:
 							target_coordinates = view.get_admirals_orders()
@@ -67,7 +69,7 @@ class Client(object):
 					if 'opponent_disconnected' in data:
 						print('your opponent disconnected from the server')
 						self.opponent_no, self.player_no, self.board_space, self.ships_key = 0, 0, 0, []
-						self.new_game(sock)
+						self.send_queue_request(sock)
 				else:
 					print('Disconnected from server')
 					sys.exit()

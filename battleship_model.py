@@ -13,7 +13,8 @@ class Player(object):
 		self.player_no = player_no
 		self.connection = conn
 		self.opponent = None
-		self.turn_count = 0
+		self.salvo_turns_remaining = 0
+		self.total_turns = 0
 		self.board = []
 		self.ships_key = []
 		self.generate_board()
@@ -82,12 +83,19 @@ class Player(object):
 		for ship in self.ships_key:
 			data.append([ship.name, ship.coordinates])
 		return data
+		
+	def get_no_floating_ships(self):
+		data = 0
+		for ship in self.ships_key:
+			if ship.is_floating == True: data += 1
+		return data
 	
 	def is_fleet_destroyed(self):
 		destroyed_ships = 0
 		for ship in self.ships_key:
 			if ship.is_floating == False: destroyed_ships += 1
 		if destroyed_ships == len(self.ships_key): return True
+		else: return False
 
 	def identify_ship(self, row, col):
 		for ship in self.ships_key:
