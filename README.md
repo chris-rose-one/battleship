@@ -30,6 +30,6 @@ available_ships
 - a list of tuples which each declare a ships name and how many spaces long it is
 - with in reason you could; make ships longer or shorter, add ships, remove ships...
 
-salvo mode
+salvo_mode
 - when set to False, you get the typical back and forth, i attack you, you attack me style of game play
 - but, when set to True, a player on their turn will make a No. of attacks equal to thier No. of ships still floating
