@@ -20,13 +20,16 @@ as clients connect to 'battleship_server.py' it will behave as a lobby and 2 x 2
 when a game ends by annihilation of a players force or the opponent disconnects from the server.</br>
 the client will delay 10 seconds before rejoining the servers games queue.
 
-in the '__main__' method at the bottom of 'battleship_server.py' are 3 variables which set the games parameters;</br>
-board_space</br>
- - 10 will deliver a 10x10 square board but, change it to 5 and play on a 5x5 square board</br>
- - a number > 10 will break the views print out of the board</br>
-available_ships</br>
- - a list of tuples which each declare a ships name and how many spaces long it is</br>
- - with in reason you could; make ships longer or shorter, add ships, remove ships...</br>
-salvo mode</br>
- - when set to False, you get the typical back and forth, i attack you, you attack me style of game play</br>
- - but, when set to True, a player on their turn will make a No. of attacks equal to thier No. of ships still floating
+in the '__main__' method at the bottom of 'battleship_server.py' are 3 variables which set the games parameters;
+
+board_space
+- 10 will deliver a 10x10 square board but, change it to 5 and play on a 5x5 square board
+- a number > 10 will break the views print out of the board
+
+available_ships
+- a list of tuples which each declare a ships name and how many spaces long it is
+- with in reason you could; make ships longer or shorter, add ships, remove ships...
+
+salvo mode
+- when set to False, you get the typical back and forth, i attack you, you attack me style of game play
+- but, when set to True, a player on their turn will make a No. of attacks equal to thier No. of ships still floating
