@@ -130,6 +130,6 @@ if __name__ == "__main__":
 	
 	board_space = 10
 	available_ships = [('Aircraft Carrier', 5), ('Battleship', 4), ('Destroyer', 3), ('Submarine', 3), ('Patrol Boat', 2)] 
-	salvo_mode = True
+	salvo_mode = False
 	
 	Server(HOST, PORT, board_space, available_ships, salvo_mode).main()
