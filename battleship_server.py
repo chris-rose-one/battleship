@@ -2,7 +2,7 @@ import sys, os, socket, select
 from battleship_utils import send_json, receive_json
 import battleship_model as model
 
-class Online_Game(object):
+class Server_Game(object):
 	def __init__(self, sock1, sock2, board_space, available_ships, salvo_mode, parent):
 		self.board_space = board_space
 		self.salvo_mode = salvo_mode
@@ -12,13 +12,13 @@ class Online_Game(object):
 		self.player1.opponent = self.player2
 		self.player2.opponent = self.player1
 		self.player_list = [self.player1, self.player2]
-		self.send_init_data()
+		self.send_game_init_data()
 		self.send_battle_data()
 		self.send_orders_request()
 	
-	def send_init_data(self):
+	def send_game_init_data(self):
 		for player in self.player_list:
-			send_json(player.connection, {'init_data': {
+			send_json(player.connection, {'game_init_data': {
 				'opponent_no': player.opponent.player_no, 'player_no': player.player_no,
 				'player_board': player.board, 'player_ships': player.serialize_ships(),
 				'board_space': self.board_space}
@@ -39,7 +39,7 @@ class Online_Game(object):
 	def player_disconnected(self, sock):
 		player = self.get_player_by_socket(sock)
 		send_json(player.opponent.connection, {'opponent_disconnected': {}})
-		self.parent.live_games.remove(self)
+		self.parent.end_game(self)
 	
 	def send_orders_request(self):
 		player = self.player_list[0]
@@ -62,7 +62,7 @@ class Online_Game(object):
 			attack_result = player.opponent.resolve_attack(target_coordinates[0], target_coordinates[1])
 			self.send_battle_data(player.player_no, target_coordinates, attack_result)
 			if player.opponent.is_fleet_destroyed(): 
-				self.parent.live_games.remove(self)
+				self.parent.end_game(self)
 				return "game_over"
 			else:
 				self.end_turn(player)
@@ -86,7 +86,7 @@ class Server(object):
 		print('battleship server started at %s on port %s' % (host, str(port)))
 		
 	def start_game(self):
-		game = Online_Game(self.game_queue[0], self.game_queue[1], self.board_space, self.available_ships, self.salvo_mode, self)
+		game = Server_Game(self.game_queue[0], self.game_queue[1], self.board_space, self.available_ships, self.salvo_mode, self)
 		self.live_games.append(game)
 		for i in range(2): self.game_queue.remove(self.game_queue[0])
 
@@ -95,6 +95,9 @@ class Server(object):
 			for player in game.player_list:
 				if player.connection == sock: return game
 			else: return None
+	
+	def end_game(self, game):
+		self.live_games.remove(game)
 
 	def main(self):
 		while 1:
