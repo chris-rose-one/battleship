@@ -1,1 +1,1 @@
-python battleship_server.py
+worker: python battleship_server.py
